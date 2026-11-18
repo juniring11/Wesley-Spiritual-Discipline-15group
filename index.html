@@ -1,0 +1,478 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="웨슬리 영성수련 12주차 — 나의 시간 계획 세우기">
+<title>나의 시간 계획</title>
+<style>
+  html{color-scheme:light}
+  :root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+  body{margin:0;font-family:system-ui,sans-serif;font-size:14px}
+  img{max-width:100%}
+  [hidden]{display:none!important}
+</style>
+</head>
+<body>
+<style>
+  /* Layout: single-column mobile worksheet; navy/clay devotional palette; stacked cards with a live self-check panel. */
+  :root{
+    --bg:#f3f4f7; --surface:#ffffff; --surface-2:#f7f8fb; --fg:#1b2230; --muted:#5b6475;
+    --line:#d8dce6; --navy:#1f3a5f; --navy-soft:#e9edf4; --accent:#7a2e2e; --accent-soft:#f3e7e5;
+    --good:#2f6b4f; --good-soft:#e3f0ea; --warn:#8a5a1a; --track:#e4e7ef; --focus:#2f5fae;
+    --shadow:0 1px 2px rgba(20,30,50,.06),0 6px 18px rgba(20,30,50,.06);
+    --r:14px;
+  }
+  @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+    --bg:#11141b; --surface:#1a1f29; --surface-2:#202632; --fg:#e8ebf1; --muted:#9aa3b5;
+    --line:#2d3444; --navy:#9db8df; --navy-soft:#1f2735; --accent:#e6a79f; --accent-soft:#2a2020;
+    --good:#7fcaa6; --good-soft:#1c2a24; --warn:#d4a568; --track:#2a3140; --focus:#7aa2e0;
+    --shadow:0 1px 2px rgba(0,0,0,.3),0 6px 18px rgba(0,0,0,.35); color-scheme:dark;
+  }}
+  :root[data-theme="dark"]{
+    --bg:#11141b; --surface:#1a1f29; --surface-2:#202632; --fg:#e8ebf1; --muted:#9aa3b5;
+    --line:#2d3444; --navy:#9db8df; --navy-soft:#1f2735; --accent:#e6a79f; --accent-soft:#2a2020;
+    --good:#7fcaa6; --good-soft:#1c2a24; --warn:#d4a568; --track:#2a3140; --focus:#7aa2e0;
+    --shadow:0 1px 2px rgba(0,0,0,.3),0 6px 18px rgba(0,0,0,.35); color-scheme:dark;
+  }
+  *{box-sizing:border-box}
+  body{background:var(--bg);color:var(--fg);margin:0;
+    font-family:"Apple SD Gothic Neo","Malgun Gothic","Noto Sans KR",system-ui,-apple-system,"Segoe UI",sans-serif;
+    line-height:1.55;-webkit-text-size-adjust:100%;
+    padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));
+    padding-bottom:calc(40px + env(safe-area-inset-bottom,0px));}
+  body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:20;background:var(--navy)}
+  .wrap{max-width:560px;margin:0 auto}
+
+  header.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:15;background:var(--navy);
+    margin:0 calc(-1*max(16px,env(safe-area-inset-left,0px))) 0 calc(-1*max(16px,env(safe-area-inset-right,0px)));
+    padding:10px max(16px,env(safe-area-inset-left,0px));display:flex;align-items:center;justify-content:space-between;gap:10px}
+  header.top .t{color:#fff;font-weight:800;font-size:1.02rem;letter-spacing:.01em}
+  header.top .t small{display:block;font-weight:500;font-size:.72rem;color:#c7d3e6;letter-spacing:.02em;margin-top:1px}
+  .jump{appearance:none;border:0;background:rgba(255,255,255,.16);color:#fff;font-weight:700;font-size:.82rem;
+    padding:8px 12px;border-radius:999px;cursor:pointer;font-family:inherit}
+  .jump:active{background:rgba(255,255,255,.28)}
+
+  .hero{padding:22px 0 6px}
+  .hero h1{font-size:1.55rem;line-height:1.25;margin:0 0 8px;letter-spacing:-.01em;text-wrap:balance}
+  .verse{color:var(--accent);font-weight:700;font-size:.95rem;margin:0 0 14px}
+  .verse span{color:var(--muted);font-weight:500}
+
+  .card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--shadow);
+    padding:16px;margin:14px 0}
+  .step{display:flex;align-items:center;gap:9px;margin:0 0 10px}
+  .badge{background:var(--navy);color:#fff;font-weight:800;font-size:.72rem;padding:4px 9px;border-radius:999px;white-space:nowrap}
+  .step h2{font-size:1.06rem;margin:0;letter-spacing:-.01em}
+  .hint{color:var(--muted);font-size:.84rem;margin:-2px 0 12px}
+  .hint.em{color:var(--accent)}
+
+  label.fld{display:block;font-size:.9rem;font-weight:600;margin:10px 0 5px}
+  input[type=text],input[type=number],input[type=time],textarea{width:100%;font-family:inherit;font-size:1rem;color:var(--fg);
+    background:var(--surface-2);border:1px solid var(--line);border-radius:10px;padding:10px 12px}
+  textarea{resize:vertical;min-height:42px;line-height:1.5}
+  input:focus,textarea:focus,button:focus-visible,.cell:focus-visible{outline:2px solid var(--focus);outline-offset:1px}
+  input::placeholder,textarea::placeholder{color:var(--muted);opacity:.8}
+
+  /* time diagnosis grid */
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px 12px}
+  .hrow{display:flex;align-items:center;gap:8px}
+  .hrow label{flex:1;min-width:0;font-size:.9rem;font-weight:600}
+  .hrow input{width:68px;text-align:center}
+  .bar{display:flex;height:16px;border-radius:999px;overflow:hidden;background:var(--track);margin:14px 0 6px}
+  .bar i{display:block;height:100%}
+  .legend{display:flex;flex-wrap:wrap;gap:6px 12px;font-size:.76rem;color:var(--muted)}
+  .legend b{display:inline-flex;align-items:center;gap:5px;font-weight:600;color:var(--fg)}
+  .dot{width:9px;height:9px;border-radius:3px;display:inline-block}
+  .total{font-size:.86rem;color:var(--muted);margin-top:8px}
+  .total b{color:var(--fg)}
+  .total .off{color:var(--accent);font-weight:700}
+
+  /* checklist */
+  ul.chk{list-style:none;margin:0;padding:0;display:grid;gap:2px}
+  ul.chk li{margin:0}
+  ul.chk label{display:flex;gap:10px;align-items:flex-start;padding:8px 6px;border-radius:9px;cursor:pointer;font-size:.92rem;font-weight:500}
+  ul.chk label:active{background:var(--surface-2)}
+  ul.chk input{margin:2px 0 0;width:18px;height:18px;accent-color:var(--navy);flex:none}
+  .count{font-weight:700;color:var(--navy)}
+
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+  @media(max-width:380px){.two{grid-template-columns:1fr}}
+
+  /* weekly tracker */
+  .tbl{overflow-x:auto;margin-top:6px}
+  table{border-collapse:collapse;width:100%;min-width:340px;font-size:.82rem}
+  th,td{border:1px solid var(--line);padding:0;text-align:center}
+  th{background:var(--navy-soft);color:var(--navy);font-weight:700;padding:6px 2px}
+  th.rowh,td.rowh{text-align:left;background:var(--surface-2);color:var(--fg);font-weight:600;padding:8px 8px;white-space:nowrap}
+  .cell{width:100%;height:38px;border:0;background:transparent;cursor:pointer;font-size:1.05rem;color:var(--good);font-family:inherit}
+  .cell[aria-pressed="true"]{background:var(--good-soft)}
+  .cell:active{background:var(--track)}
+
+  /* decision sentence */
+  .decide{font-size:1rem;line-height:1.9}
+  .decide input{display:inline-block;width:auto;min-width:120px;max-width:100%;padding:4px 8px;font-size:.95rem}
+
+  /* results */
+  #results{scroll-margin-top:72px;border:2px solid var(--navy)}
+  #results .step h2{color:var(--navy)}
+  .r-row{display:flex;justify-content:space-between;gap:12px;align-items:baseline;padding:9px 0;border-bottom:1px dashed var(--line)}
+  .r-row:last-of-type{border-bottom:0}
+  .r-k{color:var(--muted);font-size:.86rem;white-space:nowrap}
+  .r-v{font-weight:700;text-align:right;font-variant-numeric:tabular-nums}
+  .meter{height:12px;border-radius:999px;background:var(--track);overflow:hidden;margin:6px 0 2px}
+  .meter i{display:block;height:100%;background:var(--navy)}
+  .meter.good i{background:var(--good)}
+  .note{background:var(--surface-2);border-left:4px solid var(--accent);border-radius:0 10px 10px 0;
+    padding:11px 13px;margin:12px 0 0;font-size:.9rem;color:var(--fg)}
+  .note b{color:var(--accent)}
+  .acts{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+  .btn{appearance:none;border:1px solid var(--navy);background:var(--navy);color:#fff;font-weight:700;font-size:.9rem;
+    padding:11px 15px;border-radius:11px;cursor:pointer;font-family:inherit;flex:1;min-width:130px}
+  .btn.ghost{background:transparent;color:var(--navy)}
+  .btn:active{transform:translateY(1px)}
+  .saved{font-size:.78rem;color:var(--good);text-align:center;margin:8px 0 0;min-height:1em}
+  .foot{color:var(--muted);font-size:.74rem;text-align:center;margin:18px 0 0;line-height:1.6}
+  @media(prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+
+<div class="wrap">
+  <header class="top">
+    <div class="t">나의 시간 계획<small>웨슬리 영성수련 · 12주차 활동</small></div>
+    <button class="jump" id="toResults" type="button">나의 결과 ↓</button>
+  </header>
+
+  <div class="hero">
+    <h1>세월을 아끼며<br>규모 있게 사는 삶</h1>
+    <p class="verse">“세월을 아끼라 때가 악하니라” (엡 5:16) · <span>존 웨슬리, “On Redeeming the Time”</span></p>
+    <label class="fld" for="name">이름</label>
+    <input type="text" id="name" placeholder="예) 김은혜">
+  </div>
+
+  <!-- 1 -->
+  <section class="card">
+    <div class="step"><span class="badge">1단계</span><h2>시간 진단</h2></div>
+    <p class="hint">지난 한 주, 하루 평균 몇 시간을 썼는지 어림해 적어 보세요. (합이 24에 가깝게)</p>
+    <div class="grid2" id="hours"></div>
+    <div class="bar" id="bar" aria-hidden="true"></div>
+    <div class="legend" id="legend"></div>
+    <div class="total" id="total"></div>
+    <label class="fld" for="waste">가장 아까웠던 시간은?</label>
+    <input type="text" id="waste" placeholder="예) 늦은 밤 영상 시청 2시간">
+  </section>
+
+  <!-- 2 -->
+  <section class="card">
+    <div class="step"><span class="badge">2단계</span><h2>웨슬리의 거울</h2></div>
+    <p class="hint">지난 한 주, 지킨 항목을 체크하세요. (교재 ‘시간 관리의 일반 규칙’) — <span class="count"><span id="mcount">0</span>/10</span></p>
+    <ul class="chk" id="mirror"></ul>
+  </section>
+
+  <!-- 3 -->
+  <section class="card">
+    <div class="step"><span class="badge">3단계</span><h2>하루 리듬 설계 · 잠을 줄여 경건에 선용</h2></div>
+    <p class="hint em">“자연이 요구하는 만큼의 잠을 자고 그 이상은 자지 말라.” · “제때 일어나려면 일찍 자라.”</p>
+    <label class="fld" for="r_am">아침 (기상·말씀·기도)</label>
+    <textarea id="r_am" placeholder="예) 6시 기상, 시편 한 편 + 기도 15분"></textarea>
+    <label class="fld" for="r_fore">오전</label>
+    <textarea id="r_fore"></textarea>
+    <label class="fld" for="r_aft">오후</label>
+    <textarea id="r_aft"></textarea>
+    <label class="fld" for="r_eve">저녁</label>
+    <textarea id="r_eve"></textarea>
+    <label class="fld" for="r_night">밤 (성찰·감사·취침)</label>
+    <textarea id="r_night" placeholder="예) 하루 성찰 + 감사 3가지, 11시 취침"></textarea>
+    <div class="two" style="margin-top:12px">
+      <div><label class="fld" for="bed">목표 취침</label><input type="time" id="bed" value="23:00"></div>
+      <div><label class="fld" for="rise">목표 기상</label><input type="time" id="rise" value="06:00"></div>
+    </div>
+  </section>
+
+  <!-- 4 -->
+  <section class="card">
+    <div class="step"><span class="badge">4단계</span><h2>주간 경건·자비 계획</h2></div>
+    <p class="hint">은혜의 수단과 이웃 섬김을 <b>구체적·측정 가능</b>하게 한 가지씩.</p>
+    <label class="fld" for="p_pray">경건의 일 · 기도·말씀</label>
+    <input type="text" id="p_pray" placeholder="예) 매일 아침 시편 1편, 주 5회">
+    <label class="fld" for="p_sac">경건의 일 · 성찬·금식</label>
+    <input type="text" id="p_sac" placeholder="예) 수요일 점심 금식 후 기도">
+    <label class="fld" for="p_body">자비의 일 · 이웃의 몸</label>
+    <input type="text" id="p_body" placeholder="예) 홀로 계신 권사님 심방 1회">
+    <label class="fld" for="p_soul">자비의 일 · 이웃의 영혼</label>
+    <input type="text" id="p_soul" placeholder="예) 믿지 않는 친구에게 안부 연락">
+  </section>
+
+  <!-- 5 -->
+  <section class="card">
+    <div class="step"><span class="badge">5단계</span><h2>안과 밖</h2></div>
+    <p class="hint">공동체 ‘안’(엡 5:19–21)과 세상 ‘밖’(골 4:5–6)을 향한 한 걸음.</p>
+    <label class="fld" for="inside">공동체 ‘안’ — 함께 찬양·감사·섬길 한 사람/모임</label>
+    <input type="text" id="inside" placeholder="예) 속회원과 감사 나눔">
+    <label class="fld" for="outside">세상 ‘밖’ — 지혜롭고 은혜로운 말로 다가갈 한 사람</label>
+    <input type="text" id="outside" placeholder="예) 직장 동료에게 점심 대접">
+  </section>
+
+  <!-- 6 -->
+  <section class="card">
+    <div class="step"><span class="badge">6단계</span><h2>이번 주 실천 점검표</h2></div>
+    <p class="hint">실천한 날의 칸을 눌러 <b>✓</b> 하세요. 한 주 동안 날마다 점검합니다.</p>
+    <div class="tbl"><table id="tracker"><thead></thead><tbody></tbody></table></div>
+    <div class="total" style="margin-top:10px">이번 주 실천 <b><span id="tdone">0</span>/28</b> (<span id="tpct">0</span>%)</div>
+  </section>
+
+  <!-- 7 -->
+  <section class="card">
+    <div class="step"><span class="badge">7단계</span><h2>한 문장 결단</h2></div>
+    <p class="decide">“나는 이번 주,
+      <input type="text" id="d_time" placeholder="○○○">
+      시간을 아껴서,
+      <input type="text" id="d_do" placeholder="○○○ 하겠습니다">
+      ”</p>
+  </section>
+
+  <!-- RESULTS -->
+  <section class="card" id="results">
+    <div class="step"><span class="badge" style="background:var(--accent)">결과</span><h2>나의 결과 · 자기 점검</h2></div>
+    <div id="rbody"></div>
+    <div class="note" id="feedback"></div>
+    <div class="acts">
+      <button class="btn" id="copy" type="button">요약 복사 (카톡에 붙여넣기)</button>
+      <button class="btn ghost" id="reset" type="button">초기화</button>
+    </div>
+    <p class="saved" id="savedmsg"></p>
+    <p class="foot">입력은 이 휴대폰에만 자동 저장됩니다. · 참고: 웨슬리 “On Redeeming the Time”(엡 5:16) · “The Use of Money” · 『연합 소사이어티 일반 규칙』(1743) · 교재 76–77쪽</p>
+  </section>
+</div>
+
+<script>
+(function(){
+  "use strict";
+  var KEY="wsl_timeplan_v1";
+
+  var cats=[
+    {k:"sleep",label:"잠",c:"#6b7a95"},
+    {k:"work",label:"일·학업",c:"#1f3a5f"},
+    {k:"relation",label:"관계·식사",c:"#3f7a99"},
+    {k:"rest",label:"쉼·여가·운동",c:"#5aa0a0"},
+    {k:"media",label:"미디어·SNS",c:"#b08968"},
+    {k:"piety",label:"경건·예배",c:"#7a2e2e"},
+    {k:"mercy",label:"자비·섬김",c:"#a8572e"},
+    {k:"etc",label:"기타",c:"#9aa3b5"}
+  ];
+  var mirror=[
+    "하루를 하나님과 함께 시작하고 끝냈다",
+    "맡은 일에 부지런했다",
+    "여가 시간을 신앙생활에 썼다",
+    "주일(성일)을 거룩히 지켰다",
+    "저녁마다 자신을 성찰·점검했다",
+    "하루 한 시간 이상 경건의 시간을 가졌다",
+    "쓸데없는 호기심·일을 피했다",
+    "모든 정욕을 피했다",
+    "지나치게 많이 자지 않았다",
+    "중요한 일을 기도로 시작했다"
+  ];
+  var trackRows=["아침 경건(기도·말씀)","저녁 성찰·감사","자비의 일(섬김)","잠: 목표 시각"];
+  var days=["월","화","수","목","금","토","일"];
+
+  var textIds=["name","waste","r_am","r_fore","r_aft","r_eve","r_night","bed","rise",
+    "p_pray","p_sac","p_body","p_soul","inside","outside","d_time","d_do"];
+
+  // state
+  var state=load()||{hours:{},mirror:{},track:{},fields:{}};
+  function load(){try{var s=localStorage.getItem(KEY);return s?JSON.parse(s):null}catch(e){return null}}
+  var saveTimer=null;
+  function save(){try{localStorage.setItem(KEY,JSON.stringify(state));flash();}catch(e){}}
+  function flash(){var m=document.getElementById("savedmsg");if(!m)return;m.textContent="저장됨 ✓";
+    clearTimeout(saveTimer);saveTimer=setTimeout(function(){m.textContent="";},1200);}
+
+  var $=function(id){return document.getElementById(id);};
+
+  // build hours inputs
+  var hv=$("hours");
+  cats.forEach(function(c){
+    var row=document.createElement("div");row.className="hrow";
+    var lab=document.createElement("label");lab.textContent=c.label;lab.setAttribute("for","h_"+c.k);
+    var inp=document.createElement("input");inp.type="number";inp.id="h_"+c.k;inp.min="0";inp.max="24";inp.step="0.5";
+    inp.inputMode="decimal";inp.placeholder="0";
+    if(state.hours[c.k]!=null)inp.value=state.hours[c.k];
+    inp.addEventListener("input",function(){state.hours[c.k]=inp.value===""?null:parseFloat(inp.value);renderBar();render();save();});
+    row.appendChild(lab);row.appendChild(inp);hv.appendChild(row);
+  });
+
+  // build mirror
+  var mv=$("mirror");
+  mirror.forEach(function(txt,i){
+    var li=document.createElement("li");
+    var lab=document.createElement("label");
+    var cb=document.createElement("input");cb.type="checkbox";cb.id="m_"+i;
+    if(state.mirror[i])cb.checked=true;
+    cb.addEventListener("change",function(){state.mirror[i]=cb.checked;renderMirror();render();save();});
+    var sp=document.createElement("span");sp.textContent=txt;
+    lab.appendChild(cb);lab.appendChild(sp);li.appendChild(lab);mv.appendChild(li);
+  });
+
+  // build tracker
+  (function(){
+    var thead=$("tracker").querySelector("thead");
+    var trh="<tr><th class='rowh'>실천 항목</th>";
+    days.forEach(function(d){trh+="<th>"+d+"</th>";});trh+="</tr>";thead.innerHTML=trh;
+    var tb=$("tracker").querySelector("tbody");
+    trackRows.forEach(function(r,ri){
+      var tr=document.createElement("tr");
+      var th=document.createElement("td");th.className="rowh";th.textContent=r;tr.appendChild(th);
+      days.forEach(function(d,di){
+        var td=document.createElement("td");
+        var b=document.createElement("button");b.type="button";b.className="cell";
+        var key=ri+"_"+di;var on=!!state.track[key];
+        b.setAttribute("aria-pressed",on?"true":"false");b.textContent=on?"✓":"";
+        b.setAttribute("aria-label",r+" "+d+"요일");
+        b.addEventListener("click",function(){
+          var now=b.getAttribute("aria-pressed")!=="true";
+          b.setAttribute("aria-pressed",now?"true":"false");b.textContent=now?"✓":"";
+          state.track[key]=now;render();save();
+        });
+        td.appendChild(b);tr.appendChild(td);
+      });
+      tb.appendChild(tr);
+    });
+  })();
+
+  // text fields restore + bind
+  textIds.forEach(function(id){
+    var el=$(id);if(!el)return;
+    if(state.fields[id]!=null)el.value=state.fields[id];
+    else if(el.value!=="")state.fields[id]=el.value; // capture defaults (취침/기상)
+    el.addEventListener("input",function(){state.fields[id]=el.value;render();save();});
+  });
+
+  function sumHours(){var s=0;cats.forEach(function(c){var v=state.hours[c.k];if(typeof v==="number"&&!isNaN(v))s+=v;});return s;}
+
+  function renderBar(){
+    var total=sumHours();var bar=$("bar");var leg=$("legend");
+    bar.innerHTML="";leg.innerHTML="";
+    cats.forEach(function(c){
+      var v=state.hours[c.k];v=(typeof v==="number"&&!isNaN(v))?v:0;
+      if(total>0&&v>0){var seg=document.createElement("i");seg.style.width=(v/total*100)+"%";seg.style.background=c.c;bar.appendChild(seg);}
+      var b=document.createElement("b");
+      b.innerHTML="<span class='dot' style='background:"+c.c+"'></span>"+c.label+(v>0?" "+trim(v)+"h":"");
+      leg.appendChild(b);
+    });
+    var t=$("total");
+    var diff=total-24;var off=Math.abs(diff)>1.5?"<span class='off'>(24시간과 "+trim(Math.abs(diff))+"시간 차이)</span>":"";
+    t.innerHTML="합계 <b>"+trim(total)+"시간</b> / 24시간 "+off;
+  }
+
+  function renderMirror(){
+    var n=0;for(var i=0;i<mirror.length;i++){if(state.mirror[i])n++;}
+    $("mcount").textContent=n;return n;
+  }
+  function trackCount(){var n=0;for(var k in state.track){if(state.track[k])n++;}return n;}
+  function trim(x){return (Math.round(x*10)/10).toString();}
+  function esc(s){return (s||"").toString();}
+
+  function mostCategory(){
+    var best=null,bv=-1;cats.forEach(function(c){var v=state.hours[c.k];v=(typeof v==="number"&&!isNaN(v))?v:0;if(v>bv){bv=v;best=c;}});
+    return bv>0?best:null;
+  }
+  function pietyMercyHours(){
+    var p=state.hours.piety,m=state.hours.mercy;p=(typeof p==="number"&&!isNaN(p))?p:0;m=(typeof m==="number"&&!isNaN(m))?m:0;return p+m;
+  }
+
+  function render(){
+    renderBar();renderMirror();
+    var rb=$("rbody");
+    var total=sumHours();
+    var most=mostCategory();
+    var pm=pietyMercyHours();
+    var mir=renderMirror();
+    var td=trackCount();var tpct=Math.round(td/28*100);
+    $("tdone").textContent=td;$("tpct").textContent=tpct;
+
+    var rows="";
+    rows+=rrow("이름",esc(state.fields.name)||"—");
+    rows+=rrow("기입한 하루 합계",total>0?trim(total)+"시간":"—");
+    rows+=rrow("가장 많은 시간",most?most.label:"—");
+    rows+=rrow("경건+자비 시간",pm>0?trim(pm)+"시간 / 하루":"—");
+    rows+=rrow("웨슬리의 거울",mir+"/10");
+    rows+=rrow("잠 줄이기(취침→기상)",(esc(state.fields.bed)||"—")+" → "+(esc(state.fields.rise)||"—"));
+    rows+=meterRow("이번 주 실천",td+"/28 ("+tpct+"%)",tpct,"good");
+    var dt=esc(state.fields.d_time),dd=esc(state.fields.d_do);
+    if(dt||dd){rows+=rrow("나의 결단","“"+ (dt||"○○") +" 시간을 아껴서, "+ (dd||"○○ 하겠습니다") +"”");}
+    rb.innerHTML=rows;
+
+    // self-check feedback
+    $("feedback").innerHTML=feedback(mir,pm,total,tpct);
+  }
+  function rrow(k,v){return "<div class='r-row'><span class='r-k'>"+k+"</span><span class='r-v'>"+v+"</span></div>";}
+  function meterRow(k,v,pct,cls){
+    return "<div class='r-row'><span class='r-k'>"+k+"</span><span class='r-v'>"+v+"</span></div>"+
+      "<div class='meter "+(cls||"")+"'><i style='width:"+Math.max(0,Math.min(100,pct))+"%'></i></div>";
+  }
+  function feedback(mir,pm,total,tpct){
+    var msgs=[];
+    // Wesley mirror tiers
+    if(mir>=8)msgs.push("<b>웨슬리의 거울:</b> 규모 있는 삶이 잘 자리잡았습니다. 이 리듬을 ‘훈련된 사랑’으로 이어가세요.");
+    else if(mir>=4)msgs.push("<b>웨슬리의 거울:</b> 좋은 출발입니다. 이번 주, 가장 지키기 어려운 한 항목을 콕 집어 연습해 보세요.");
+    else msgs.push("<b>웨슬리의 거울:</b> 부담 갖지 말고, 10개 중 ‘한 가지’만 골라 이번 주의 작은 규칙으로 삼아 보세요.");
+    // piety+mercy
+    if(total>0){
+      if(pm<=0)msgs.push("경건·자비의 시간이 아직 비어 있습니다. 하루 15분이라도 아껴서 드릴 시간을 정해 보세요.");
+      else if(pm<1)msgs.push("경건·자비에 하루 "+trim(pm)+"시간. 여기에 15분만 더해도 ‘세월을 아끼는’ 한 걸음이 됩니다.");
+      else msgs.push("경건·자비에 하루 "+trim(pm)+"시간을 드리고 있군요. 시간을 아낌은 곧 하나님과 이웃을 사랑할 시간을 아끼는 것입니다.");
+    }
+    // tracker
+    if(tpct>=70)msgs.push("이번 주 실천 "+tpct+"% — 꾸준함이 보입니다. 넘어진 날이 있어도 ‘곧 다시 시작’하면 됩니다.");
+    else if(tpct>0)msgs.push("이번 주 실천 "+tpct+"% — 한 칸씩 채워 가세요. 완벽이 아니라 ‘방향’이 중요합니다.");
+    return msgs.join("<br><br>");
+  }
+
+  function summaryText(){
+    var total=sumHours(),most=mostCategory(),pm=pietyMercyHours(),mir=renderMirror(),td=trackCount(),tpct=Math.round(td/28*100);
+    var L=[];
+    L.push("[나의 시간 계획 — 웨슬리 영성수련 12주차]");
+    if(state.fields.name)L.push("· "+state.fields.name);
+    L.push("· 하루 합계: "+(total>0?trim(total)+"시간":"—")+" / 가장 많은 시간: "+(most?most.label:"—"));
+    L.push("· 경건+자비: "+(pm>0?trim(pm)+"시간/일":"—")+" / 웨슬리의 거울: "+mir+"/10");
+    L.push("· 취침→기상: "+(state.fields.bed||"—")+" → "+(state.fields.rise||"—"));
+    if(state.fields.p_pray)L.push("· 경건(기도·말씀): "+state.fields.p_pray);
+    if(state.fields.p_sac)L.push("· 경건(성찬·금식): "+state.fields.p_sac);
+    if(state.fields.p_body)L.push("· 자비(이웃의 몸): "+state.fields.p_body);
+    if(state.fields.p_soul)L.push("· 자비(이웃의 영혼): "+state.fields.p_soul);
+    if(state.fields.inside)L.push("· 공동체 안: "+state.fields.inside);
+    if(state.fields.outside)L.push("· 세상 밖: "+state.fields.outside);
+    L.push("· 이번 주 실천: "+td+"/28 ("+tpct+"%)");
+    if(state.fields.d_time||state.fields.d_do)
+      L.push("· 결단: 나는 이번 주, "+(state.fields.d_time||"○○")+" 시간을 아껴서, "+(state.fields.d_do||"○○ 하겠습니다")+".");
+    return L.join("\n");
+  }
+
+  // actions
+  $("toResults").addEventListener("click",function(){$("results").scrollIntoView({behavior:"smooth",block:"start"});});
+  $("copy").addEventListener("click",function(){
+    var txt=summaryText();var btn=$("copy");
+    function ok(){btn.textContent="복사됨 ✓";setTimeout(function(){btn.textContent="요약 복사 (카톡에 붙여넣기)";},1600);}
+    if(navigator.clipboard&&navigator.clipboard.writeText){
+      navigator.clipboard.writeText(txt).then(ok).catch(fallback);
+    }else fallback();
+    function fallback(){
+      var ta=document.createElement("textarea");ta.value=txt;ta.style.position="fixed";ta.style.top="-1000px";
+      document.body.appendChild(ta);ta.focus();ta.select();
+      try{document.execCommand("copy");ok();}catch(e){btn.textContent="길게 눌러 복사하세요";}
+      setTimeout(function(){document.body.removeChild(ta);},100);
+    }
+  });
+  $("reset").addEventListener("click",function(){
+    var m=$("savedmsg");m.textContent="다시 한 번 누르면 초기화됩니다";
+    if(m.dataset.arm==="1"){
+      try{localStorage.removeItem(KEY);}catch(e){}
+      state={hours:{},mirror:{},track:{},fields:{}};
+      location.reload();return;
+    }
+    m.dataset.arm="1";setTimeout(function(){m.dataset.arm="";m.textContent="";},2500);
+  });
+
+  render();
+})();
+</script>
+
+</body>
+</html>
